@@ -1,9 +1,17 @@
+//@flow
 import React, { Component } from "react";
 import { TextInput, View, StyleSheet, Keyboard } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-export default class SearchBar extends Component {
-	constructor(props) {
+type State = {
+	search: string,
+	isFocus: boolean
+};
+
+type Props = {};
+
+export default class SearchBar extends Component<Props, State> {
+	constructor(props: Props) {
 		super(props);
 		this.state = {
 			search: "",
@@ -14,24 +22,25 @@ export default class SearchBar extends Component {
 		this.handleFocus = this.handleFocus.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 	}
+
 	componentDidMount() {
 		this.keyboardDidHideListener = Keyboard.addListener(
 			"keyboardDidHide",
 			this.handleKeyboardHide
 		);
-    }
-    
-    handleKeyboardHide() {
-        Keyboard.dismiss();
-    }
+	}
 
-	handleSearch(query) {
+	handleKeyboardHide() {
+		Keyboard.dismiss();
+	}
+
+	handleSearch(query: string): void {
 		this.setState({ search: query });
 	}
-	handleFocus() {
+	handleFocus(): void {
 		this.setState({ isFocus: true });
 	}
-	handleBlur() {
+	handleBlur(): void {
 		this.setState({ isFocus: false });
 	}
 	render() {
